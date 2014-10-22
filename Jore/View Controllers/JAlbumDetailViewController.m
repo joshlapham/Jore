@@ -65,7 +65,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     UILabel *trackNameLabel = (UILabel *)[cell viewWithTag:101];
     UILabel *trackDurationLabel = (UILabel *)[cell viewWithTag:102];
     NSString *trackNameLabelString = [NSString stringWithFormat:@"%@. %@", cellData.trackNumber, cellData.trackName];
-    NSString *trackDurationLabelString = [JDataStore convertTrackDurationFromMilliseconds:cellData.trackDuration];
+    NSString *trackDurationLabelString = [JDataStore convertTrackDurationFromMilliseconds:[cellData.trackDuration intValue]];
     
     // Set contents of labels using our data
     [trackNameLabel setText:trackNameLabelString];

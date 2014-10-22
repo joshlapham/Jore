@@ -78,20 +78,20 @@ static const int ddLogLevel = LOG_LEVEL_OFF;
     NSString *albumNameString = cellData.albumName;
     NSString *albumReleaseDateString = cellData.albumReleaseDate;
     NSString *albumTrackCountString = cellData.albumTrackCount;
+    NSString *albumDurationString = [JDataStore convertAlbumDurationFromMilliseconds:[cellData.albumTotalDuration intValue]];
     
     // Init cell labels
     UILabel *albumNameLabel = (UILabel *)[cell viewWithTag:101];
     UILabel *albumReleaseDateLabel = (UILabel *)[cell viewWithTag:102];
     UILabel *albumTrackCountLabel = (UILabel *)[cell viewWithTag:103];
-    UIImageView *albumImageView = (UIImageView *)[cell viewWithTag:104];
-    
-    //[albumNameLabel setNumberOfLines:0];
-    [albumNameLabel setAdjustsFontSizeToFitWidth:YES];
+    UILabel *albumDurationLabel = (UILabel *)[cell viewWithTag:104];
+    UIImageView *albumImageView = (UIImageView *)[cell viewWithTag:105];
     
     // Set contents of labels using cell data
     [albumNameLabel setText:albumNameString];
     [albumReleaseDateLabel setText:albumReleaseDateString];
     [albumTrackCountLabel setText:[NSString stringWithFormat:@"%@ Songs", albumTrackCountString]];
+    [albumDurationLabel setText:albumDurationString];
     
     // Set image using AFNetworking
     [albumImageView setImageWithURL:[NSURL URLWithString:cellData.albumImageUrl]];

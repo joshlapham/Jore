@@ -16,15 +16,26 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation JDataStore
 
-#pragma mark - Convert track duration from milliseconds
+#pragma mark - Convert track & album durations from milliseconds to string methods
 
-+ (NSString *)convertTrackDurationFromMilliseconds:(NSString *)millisecondsValue {
-    float seconds = [millisecondsValue floatValue] / 1000.0;
-    float minutes = seconds / 60.0;
++ (NSString *)convertTrackDurationFromMilliseconds:(int)milliseconds {
+    int seconds = milliseconds / 1000;
+    int minutes = seconds / 60;
     
-    // TODO: fix up the returned string formatting, cause it doesn't look right
-    return [NSString stringWithFormat:@"%.f:%.f", minutes, seconds];
+    // TODO: fix up string formatting, cause it doesn't look right
+    return [NSString stringWithFormat:@"%d:%d", minutes, seconds];
 }
+
++ (NSString *)convertAlbumDurationFromMilliseconds:(int)milliseconds {
+    int seconds = milliseconds / 1000;
+    int minutes = seconds / 60;
+    
+    return [NSString stringWithFormat:@"%d mins", minutes];
+}
+
+#pragma mark - Calculate total album duration method
+
+//+ (NSString *)calculateTotalAlbumDuration
 
 #pragma mark - Fetch album details method
 
@@ -55,6 +66,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         // Init array to hold track info
         NSMutableArray *allTracksArray = [[NSMutableArray alloc] init];
         
+        // Init array to hold all track durations
+        NSMutableArray *allTrackDurationArray = [[NSMutableArray alloc] init];
+        
         for (NSDictionary *track in tracksArray) {
             //DDLogVerbose(@"TRACK: %@", [track class]);
             NSString *trackName = [track objectForKey:@"name"];
@@ -68,17 +82,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             trackDict = @{ @"trackName": trackName, @"trackId": trackId, @"trackNumber" : trackNumber, @"trackDuration": trackDuration, @"trackPreviewUrl": trackPreviewUrl, @"trackAlbumId": trackAlbumId };
             
             // Init JTrack object
-            JTrack *track = [[JTrack alloc] initWithName:trackName
+            JTrack *newTrack = [[JTrack alloc] initWithName:trackName
                                                    andId:trackId
                                              andDuration:trackDuration
                                                andNumber:trackNumber
                                            andPreviewUrl:trackPreviewUrl
                                               andAlbumId:trackAlbumId];
             
-            DDLogVerbose(@"dataStore: init track: %@; duration: %@", track.trackName, track.trackDuration);
+            DDLogVerbose(@"dataStore: init track: %@; duration: %@", newTrack.trackName, newTrack.trackDuration);
             
             // Add track to tracksArray
-            [allTracksArray addObject:track];
+            [allTracksArray addObject:newTrack];
+            
+            // Add track duration to allTrackDurationArray
+            [allTrackDurationArray addObject:[track objectForKey:@"duration_ms"]];
         }
         
         // Init album release date string
@@ -105,12 +122,17 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             }
         }
         
+        // Calculate total sum of allTrackDurationArray using Collection Operator
+        NSNumber *totalAlbumDuration = [allTrackDurationArray valueForKeyPath:@"@sum.self"];
+        NSString *totalAlbumDurationString = [NSString stringWithFormat:@"%@", totalAlbumDuration];
+        
         // Init JAlbum object
         JAlbum *album = [[JAlbum alloc] initWithName:albumName
                                                andId:albumId
                                       andReleaseDate:albumReleaseDate
                                        andTrackCount:albumTrackCount
-                                         andImageUrl:albumImageUrl];
+                                         andImageUrl:albumImageUrl
+                                         andDuration:totalAlbumDurationString];
         
         // Persist album to NSUserDefaults
         [self persistAlbum:album andTracks:allTracksArray];
@@ -152,6 +174,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     DDLogVerbose(@"dataStore: persisted album to NSUserDefaults: %@; total: %d", albumToPersist.albumName, [cachedResults count]);
     
+    // Post NSNotification that data fetch did happen
+    // TODO: review this, as it refreshes the Album List VC table view multiple times
     [self postNotificationThatDataFetchDidHappen];
 }
 

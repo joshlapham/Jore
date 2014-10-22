@@ -17,6 +17,7 @@
 + (void)fetchAlbumData;
 + (NSArray *)returnFetchedAlbums;
 + (NSArray *)returnFetchedTracksForAlbumId:(NSString *)albumId;
-+ (NSString *)convertTrackDurationFromMilliseconds:(NSString *)millisecondsValue;
++ (NSString *)convertTrackDurationFromMilliseconds:(int)milliseconds;
++ (NSString *)convertAlbumDurationFromMilliseconds:(int)milliseconds;
 
 @end

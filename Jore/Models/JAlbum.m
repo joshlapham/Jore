@@ -10,7 +10,7 @@
 
 @implementation JAlbum
 
-@synthesize albumName, albumId, albumReleaseDate, albumTrackCount, albumImageUrl;
+@synthesize albumName, albumId, albumReleaseDate, albumTrackCount, albumImageUrl, albumTotalDuration;
 
 #pragma mark - Init method
 
@@ -18,7 +18,8 @@
              andId:(NSString *)albumIdValue
     andReleaseDate:(NSString *)albumReleaseDateValue
      andTrackCount:(NSString *)albumTrackCountValue
-       andImageUrl:(NSString *)albumImageUrlValue {
+       andImageUrl:(NSString *)albumImageUrlValue
+       andDuration:(NSString *)albumDurationValue {
     self = [super init];
     if (self) {
         albumName = albumNameValue;
@@ -26,6 +27,7 @@
         albumReleaseDate = albumReleaseDateValue;
         albumTrackCount = albumTrackCountValue;
         albumImageUrl = albumImageUrlValue;
+        albumTotalDuration = albumDurationValue;
     }
     return self;
 }
@@ -41,6 +43,7 @@
         albumReleaseDate = [aDecoder decodeObjectForKey:@"albumReleaseDate"];
         albumTrackCount = [aDecoder decodeObjectForKey:@"albumTrackCount"];
         albumImageUrl = [aDecoder decodeObjectForKey:@"albumImageUrl"];
+        albumTotalDuration = [aDecoder decodeObjectForKey:@"albumTotalDuration"];
     }
     return self;
 }
@@ -52,6 +55,7 @@
     [aCoder encodeObject:albumReleaseDate forKey:@"albumReleaseDate"];
     [aCoder encodeObject:albumTrackCount forKey:@"albumTrackCount"];
     [aCoder encodeObject:albumImageUrl forKey:@"albumImageUrl"];
+    [aCoder encodeObject:albumTotalDuration forKey:@"albumTotalDuration"];
 }
 
 @end

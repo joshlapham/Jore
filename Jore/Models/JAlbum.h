@@ -15,11 +15,13 @@
 @property (nonatomic, strong) NSString *albumReleaseDate;
 @property (nonatomic, strong) NSString *albumTrackCount;
 @property (nonatomic, strong) NSString *albumImageUrl;
+@property (nonatomic, strong) NSString *albumTotalDuration;
 
 - (id)initWithName:(NSString *)albumNameValue
              andId:(NSString *)albumIdValue
     andReleaseDate:(NSString *)albumReleaseDateValue
      andTrackCount:(NSString *)albumTrackCountValue
-       andImageUrl:(NSString *)albumImageUrlValue;
+       andImageUrl:(NSString *)albumImageUrlValue
+       andDuration:(NSString *)albumDurationValue;
 
 @end
