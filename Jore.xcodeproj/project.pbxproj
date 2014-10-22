@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61863D4EE0DB283DF3D6C6A0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2AD95C4D5806869250C55A /* libPods.a */; };
 		68A2F56819F7366B009C94CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F56719F7366B009C94CB /* main.m */; };
 		68A2F56B19F7366B009C94CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F56A19F7366B009C94CB /* AppDelegate.m */; };
-		68A2F56E19F7366B009C94CB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F56D19F7366B009C94CB /* ViewController.m */; };
 		68A2F57119F7366B009C94CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68A2F56F19F7366B009C94CB /* Main.storyboard */; };
 		68A2F57319F7366B009C94CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68A2F57219F7366B009C94CB /* Images.xcassets */; };
 		68A2F57619F7366B009C94CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68A2F57419F7366B009C94CB /* LaunchScreen.xib */; };
 		68A2F58219F7366B009C94CB /* JoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F58119F7366B009C94CB /* JoreTests.m */; };
+		68A2F58D19F73850009C94CB /* JAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F58C19F73850009C94CB /* JAlbumListViewController.m */; };
+		68A2F59119F73EF7009C94CB /* JDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F59019F73EF7009C94CB /* JDataStore.m */; };
+		68A2F59519F73F4C009C94CB /* JPLReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F59419F73F4C009C94CB /* JPLReachabilityManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +35,21 @@
 		68A2F56719F7366B009C94CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		68A2F56919F7366B009C94CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		68A2F56A19F7366B009C94CB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		68A2F56C19F7366B009C94CB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		68A2F56D19F7366B009C94CB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		68A2F57019F7366B009C94CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		68A2F57219F7366B009C94CB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		68A2F57519F7366B009C94CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		68A2F57B19F7366B009C94CB /* JoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68A2F58019F7366B009C94CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68A2F58119F7366B009C94CB /* JoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JoreTests.m; sourceTree = "<group>"; };
+		68A2F58B19F73850009C94CB /* JAlbumListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JAlbumListViewController.h; path = "View Controllers/JAlbumListViewController.h"; sourceTree = "<group>"; };
+		68A2F58C19F73850009C94CB /* JAlbumListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JAlbumListViewController.m; path = "View Controllers/JAlbumListViewController.m"; sourceTree = "<group>"; };
+		68A2F58F19F73EF7009C94CB /* JDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDataStore.h; path = Stores/JDataStore.h; sourceTree = "<group>"; };
+		68A2F59019F73EF7009C94CB /* JDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDataStore.m; path = Stores/JDataStore.m; sourceTree = "<group>"; };
+		68A2F59319F73F4C009C94CB /* JPLReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPLReachabilityManager.h; path = Stores/JPLReachabilityManager.h; sourceTree = "<group>"; };
+		68A2F59419F73F4C009C94CB /* JPLReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPLReachabilityManager.m; path = Stores/JPLReachabilityManager.m; sourceTree = "<group>"; };
+		6E2AD95C4D5806869250C55A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5F3E0B6D002A354A7444AFE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		E2AC499722C7E4BBD762AF5A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61863D4EE0DB283DF3D6C6A0 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +71,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14D432F54A48D95C6BFD57C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E2AD95C4D5806869250C55A /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		68A2F55919F7366B009C94CB = {
 			isa = PBXGroup;
 			children = (
 				68A2F56419F7366B009C94CB /* Jore */,
 				68A2F57E19F7366B009C94CB /* JoreTests */,
 				68A2F56319F7366B009C94CB /* Products */,
+				E72C268134A6DB24BB2E4D86 /* Pods */,
+				14D432F54A48D95C6BFD57C4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,13 +102,11 @@
 		68A2F56419F7366B009C94CB /* Jore */ = {
 			isa = PBXGroup;
 			children = (
-				68A2F56919F7366B009C94CB /* AppDelegate.h */,
-				68A2F56A19F7366B009C94CB /* AppDelegate.m */,
-				68A2F56C19F7366B009C94CB /* ViewController.h */,
-				68A2F56D19F7366B009C94CB /* ViewController.m */,
 				68A2F56F19F7366B009C94CB /* Main.storyboard */,
 				68A2F57219F7366B009C94CB /* Images.xcassets */,
 				68A2F57419F7366B009C94CB /* LaunchScreen.xib */,
+				68A2F59219F73EFA009C94CB /* Stores */,
+				68A2F58E19F73855009C94CB /* View Controllers */,
 				68A2F56519F7366B009C94CB /* Supporting Files */,
 			);
 			path = Jore;
@@ -96,6 +115,8 @@
 		68A2F56519F7366B009C94CB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				68A2F56919F7366B009C94CB /* AppDelegate.h */,
+				68A2F56A19F7366B009C94CB /* AppDelegate.m */,
 				68A2F56619F7366B009C94CB /* Info.plist */,
 				68A2F56719F7366B009C94CB /* main.m */,
 			);
@@ -119,6 +140,35 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		68A2F58E19F73855009C94CB /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				68A2F58B19F73850009C94CB /* JAlbumListViewController.h */,
+				68A2F58C19F73850009C94CB /* JAlbumListViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		68A2F59219F73EFA009C94CB /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				68A2F59319F73F4C009C94CB /* JPLReachabilityManager.h */,
+				68A2F59419F73F4C009C94CB /* JPLReachabilityManager.m */,
+				68A2F58F19F73EF7009C94CB /* JDataStore.h */,
+				68A2F59019F73EF7009C94CB /* JDataStore.m */,
+			);
+			name = Stores;
+			sourceTree = "<group>";
+		};
+		E72C268134A6DB24BB2E4D86 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B5F3E0B6D002A354A7444AFE /* Pods.debug.xcconfig */,
+				E2AC499722C7E4BBD762AF5A /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +176,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68A2F58519F7366B009C94CB /* Build configuration list for PBXNativeTarget "Jore" */;
 			buildPhases = (
+				A78A012AB58D2558815805C9 /* Check Pods Manifest.lock */,
 				68A2F55E19F7366B009C94CB /* Sources */,
 				68A2F55F19F7366B009C94CB /* Frameworks */,
 				68A2F56019F7366B009C94CB /* Resources */,
+				E1D2A4CF203F1694C2DC523F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,14 +266,49 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A78A012AB58D2558815805C9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E1D2A4CF203F1694C2DC523F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		68A2F55E19F7366B009C94CB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68A2F56E19F7366B009C94CB /* ViewController.m in Sources */,
+				68A2F59519F73F4C009C94CB /* JPLReachabilityManager.m in Sources */,
+				68A2F59119F73EF7009C94CB /* JDataStore.m in Sources */,
 				68A2F56B19F7366B009C94CB /* AppDelegate.m in Sources */,
 				68A2F56819F7366B009C94CB /* main.m in Sources */,
+				68A2F58D19F73850009C94CB /* JAlbumListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +428,7 @@
 		};
 		68A2F58619F7366B009C94CB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5F3E0B6D002A354A7444AFE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Jore/Info.plist;
@@ -351,6 +439,7 @@
 		};
 		68A2F58719F7366B009C94CB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2AC499722C7E4BBD762AF5A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Jore/Info.plist;
@@ -412,6 +501,7 @@
 				68A2F58719F7366B009C94CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		68A2F58819F7366B009C94CB /* Build configuration list for PBXNativeTarget "JoreTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +510,7 @@
 				68A2F58A19F7366B009C94CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

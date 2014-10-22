@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "DDLog.h"
+#import "DDTTYLogger.h"
+#import "Stores/JPLReachabilityManager.h"
+#import "Stores/JDataStore.h"
 
 @interface AppDelegate ()
 
@@ -14,9 +19,35 @@
 
 @implementation AppDelegate
 
+#pragma mark - Check for network reachability method
+
+- (void)checkForNetworkReachability {
+    if ([JPLReachabilityManager isReachable]) {
+        // Fetch album data
+        [JDataStore fetchAlbumData];
+    } else {
+        // TODO: show UIAlertView advising of no network connection
+    }
+}
+
+#pragma mark - App Delegate methods
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    // Init CocoaLumberjack
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
+    // Init Reachability
+    [JPLReachabilityManager sharedManager];
+    
+    // Init data store
+    [JDataStore sharedStore];
+    
+    // Check for network reachability
+    //[self checkForNetworkReachability];
+    
+    // Fetch album data
+    [JDataStore fetchAlbumData];
+    
     return YES;
 }
 

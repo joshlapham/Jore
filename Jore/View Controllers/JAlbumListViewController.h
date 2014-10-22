@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  JAlbumListViewController.h
 //  Jore
 //
 //  Created by jl on 22/10/2014.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface JAlbumListViewController : UITableViewController
 
 @end
-
