@@ -15,7 +15,7 @@
 
 // Class methods
 + (void)fetchAlbumData;
-+ (NSArray *)returnFetchedAlbumNames;
++ (NSArray *)returnFetchedAlbums;
 + (void)postNotificationThatDataFetchDidHappen;
 
 @end

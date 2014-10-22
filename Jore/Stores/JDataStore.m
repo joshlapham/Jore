@@ -32,18 +32,37 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     dataFetchOperation.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [dataFetchOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // Init array to hold album name strings
-        NSMutableArray *albumNames = [[NSMutableArray alloc] init];
+        // Init dictionary to hold album info
+        NSDictionary *albumInfo;
+        
+        // Init array to hold albumInfo dicts
+        NSMutableArray *albumInfoArray = [[NSMutableArray alloc] init];
         
         // Loop over fetched data to get album names and add to albumNames array
         for (NSDictionary *item in [responseObject objectForKey:@"items"]) {
             NSString *albumName = [item objectForKey:@"name"];
             DDLogVerbose(@"Album name: %@", albumName);
-            [albumNames addObject:albumName];
+            
+            NSString *albumImageUrl;
+            
+            // Get album image URL (if sized 300x300)
+            for (NSDictionary *albumImage in [item objectForKey:@"images"]) {
+                if ([[albumImage objectForKey:@"height"] isEqualToNumber:@300]) {
+                    albumImageUrl = [albumImage objectForKey:@"url"];
+                    
+                    DDLogVerbose(@"Album image URL: %@", albumImageUrl);
+                }
+            }
+            
+            // Set albumInfo dict
+            albumInfo = @{ @"albumName" : albumName, @"albumImageUrl" : albumImageUrl };
+            
+            // Add albumInfo dict to albumInfoArray
+            [albumInfoArray addObject:albumInfo];
         }
         
         // Save albumNames array to NSUserDefaults
-        [[NSUserDefaults standardUserDefaults] setObject:albumNames forKey:@"JFetchedAlbumNames"];
+        [[NSUserDefaults standardUserDefaults] setObject:albumInfoArray forKey:@"JAlbumInfoArray"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         DDLogVerbose(@"dataStore: saved fetched album names to NSUserDefaults");
@@ -59,12 +78,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [dataFetchOperation start];
 }
 
-#pragma mark - Return fetched album names method
+#pragma mark - Return fetched album info method
 
-+ (NSArray *)returnFetchedAlbumNames {
-    NSArray *arrayToReturn = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"JFetchedAlbumNames"]];
++ (NSArray *)returnFetchedAlbums {
+    NSArray *arrayToReturn = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"JAlbumInfoArray"]];
     
-    DDLogVerbose(@"dataStore: return fetched album names count: %d", [arrayToReturn count]);
+    DDLogVerbose(@"dataStore: return fetched albums count: %d", [arrayToReturn count]);
     
     return arrayToReturn;
 }

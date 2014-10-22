@@ -9,6 +9,7 @@
 #import "JAlbumListViewController.h"
 #import <CocoaLumberjack.h>
 #import "JDataStore.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface JAlbumListViewController ()
 
@@ -26,7 +27,7 @@ static const int ddLogLevel = LOG_LEVEL_OFF;
     DDLogVerbose(@"Album List VC: was notified that data fetch did happen");
     
     // Init data source array for tableView
-    _cellDataSourceArray = [NSArray arrayWithArray:[JDataStore returnFetchedAlbumNames]];
+    _cellDataSourceArray = [NSArray arrayWithArray:[JDataStore returnFetchedAlbums]];
     
     // Reload tableView with new data
     [self.tableView reloadData];
@@ -70,10 +71,18 @@ static const int ddLogLevel = LOG_LEVEL_OFF;
     // Init cell
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AlbumListCell" forIndexPath:indexPath];
     
-    // Init album name text label
-    NSString *albumNameString = [_cellDataSourceArray objectAtIndex:indexPath.row];
+    // Init cell data
+    NSDictionary *cellData = [_cellDataSourceArray objectAtIndex:indexPath.row];
+    NSString *albumNameString = [cellData objectForKey:@"albumName"];
+    NSString *albumImageUrlString = [cellData objectForKey:@"albumImageUrl"];
+    
+    // Init cell labels
     UILabel *albumNameLabel = (UILabel *)[cell viewWithTag:101];
+    UIImageView *albumImageView = (UIImageView *)[cell viewWithTag:104];
+    
+    // Set contents of labels using cell data
     [albumNameLabel setText:albumNameString];
+    [albumImageView setImageWithURL:[NSURL URLWithString:albumImageUrlString]];
     
     return cell;
 }
