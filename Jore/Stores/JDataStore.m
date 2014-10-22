@@ -16,26 +16,51 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation JDataStore
 
-#pragma mark - Convert track & album durations from milliseconds to string methods
+#pragma mark - Fetch album data method
 
-+ (NSString *)convertTrackDurationFromMilliseconds:(int)milliseconds {
-    int seconds = milliseconds / 1000;
-    int minutes = seconds / 60;
++ (void)fetchAlbumData {
+    DDLogVerbose(@"dataStore: fetching album data ..");
     
-    // TODO: fix up string formatting, cause it doesn't look right
-    return [NSString stringWithFormat:@"%d:%d", minutes, seconds];
-}
-
-+ (NSString *)convertAlbumDurationFromMilliseconds:(int)milliseconds {
-    int seconds = milliseconds / 1000;
-    int minutes = seconds / 60;
+    // Clear any previously fetched album results
+    [self clearAlbumCache];
     
-    return [NSString stringWithFormat:@"%d mins", minutes];
+    // Init Spotify artist ID string
+    NSString *spotifyArtistId = @"0vIqwp5PW929D9dZcB0wtc";
+    
+    // Init URL to fetch data from
+    NSString *dataUrlString = [NSString stringWithFormat:@"https://api.spotify.com/v1/artists/%@/albums", spotifyArtistId];
+    NSURL *dataUrl = [NSURL URLWithString:dataUrlString];
+    NSURLRequest *dataUrlRequest = [NSURLRequest requestWithURL:dataUrl];
+    
+    // Init AFNetworking
+    AFHTTPRequestOperation *dataFetchOperation = [[AFHTTPRequestOperation alloc] initWithRequest:dataUrlRequest];
+    dataFetchOperation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [dataFetchOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // Init array to hold album IDs
+        NSMutableArray *albumIdArray = [[NSMutableArray alloc] init];
+        
+        // Loop over fetched data to get album IDs and add to albumIdArray
+        for (NSDictionary *item in [responseObject objectForKey:@"items"]) {
+            [albumIdArray addObject:[item objectForKey:@"id"]];
+        }
+        
+        // Save albumIdArray to NSUserDefaults
+        [[NSUserDefaults standardUserDefaults] setObject:albumIdArray forKey:@"JAlbumIdArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        DDLogVerbose(@"dataStore: saved fetched album IDs to NSUserDefaults");
+        
+        // Call did finish fetching album IDs method
+        [self didFinishFetchingAlbumIds];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DDLogError(@"dataStore: error fetching album data: %@", [error localizedDescription]);
+    }];
+    
+    // Start the data fetch operation
+    [dataFetchOperation start];
 }
-
-#pragma mark - Calculate total album duration method
-
-//+ (NSString *)calculateTotalAlbumDuration
 
 #pragma mark - Fetch album details method
 
@@ -83,11 +108,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             
             // Init JTrack object
             JTrack *newTrack = [[JTrack alloc] initWithName:trackName
-                                                   andId:trackId
-                                             andDuration:trackDuration
-                                               andNumber:trackNumber
-                                           andPreviewUrl:trackPreviewUrl
-                                              andAlbumId:trackAlbumId];
+                                                      andId:trackId
+                                                andDuration:trackDuration
+                                                  andNumber:trackNumber
+                                              andPreviewUrl:trackPreviewUrl
+                                                 andAlbumId:trackAlbumId];
             
             DDLogVerbose(@"dataStore: init track: %@; duration: %@", newTrack.trackName, newTrack.trackDuration);
             
@@ -143,6 +168,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     // Start the data fetch operation
     [dataFetchOperation start];
+}
+
+#pragma mark - Convert track & album durations from milliseconds to string methods
+
++ (NSString *)convertTrackDurationFromMilliseconds:(int)milliseconds {
+    int seconds = milliseconds / 1000;
+    int minutes = seconds / 60;
+    
+    // TODO: fix up string formatting, cause it doesn't look right
+    return [NSString stringWithFormat:@"%d:%d", minutes, seconds];
+}
+
++ (NSString *)convertAlbumDurationFromMilliseconds:(int)milliseconds {
+    int seconds = milliseconds / 1000;
+    int minutes = seconds / 60;
+    
+    return [NSString stringWithFormat:@"%d mins", minutes];
 }
 
 #pragma mark - Clear previously fetched album results method
@@ -209,52 +251,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     } else {
         return YES;
     }
-}
-
-#pragma mark - Fetch album data method
-
-+ (void)fetchAlbumData {
-    DDLogVerbose(@"dataStore: fetching album data ..");
-    
-    // Clear any previously fetched album results
-    [self clearAlbumCache];
-    
-    // Init Spotify artist ID string
-    NSString *spotifyArtistId = @"0vIqwp5PW929D9dZcB0wtc";
-    
-    // Init URL to fetch data from
-    NSString *dataUrlString = [NSString stringWithFormat:@"https://api.spotify.com/v1/artists/%@/albums", spotifyArtistId];
-    NSURL *dataUrl = [NSURL URLWithString:dataUrlString];
-    NSURLRequest *dataUrlRequest = [NSURLRequest requestWithURL:dataUrl];
-    
-    // Init AFNetworking
-    AFHTTPRequestOperation *dataFetchOperation = [[AFHTTPRequestOperation alloc] initWithRequest:dataUrlRequest];
-    dataFetchOperation.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    [dataFetchOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // Init array to hold album IDs
-        NSMutableArray *albumIdArray = [[NSMutableArray alloc] init];
-        
-        // Loop over fetched data to get album IDs and add to albumIdArray
-        for (NSDictionary *item in [responseObject objectForKey:@"items"]) {
-            [albumIdArray addObject:[item objectForKey:@"id"]];
-        }
-        
-        // Save albumIdArray to NSUserDefaults
-        [[NSUserDefaults standardUserDefaults] setObject:albumIdArray forKey:@"JAlbumIdArray"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        DDLogVerbose(@"dataStore: saved fetched album IDs to NSUserDefaults");
-        
-        // Call did finish fetching album IDs method
-        [self didFinishFetchingAlbumIds];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DDLogError(@"dataStore: error fetching album data: %@", [error localizedDescription]);
-    }];
-    
-    // Start the data fetch operation
-    [dataFetchOperation start];
 }
 
 #pragma mark - Did finish fetching album IDs method
