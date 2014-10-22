@@ -11,6 +11,7 @@
 #import "JDataStore.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "JAlbum.h"
+#import "JAlbumDetailViewController.h"
 
 @interface JAlbumListViewController ()
 
@@ -95,14 +96,25 @@ static const int ddLogLevel = LOG_LEVEL_OFF;
     return cell;
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"AlbumDetailSegue"]) {
+        // Init back bar button text
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Albums", nil)
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:nil
+                                                                                action:nil];
+        // Init cell data that was just chosen
+        NSIndexPath *indexPath;
+        JAlbumDetailViewController *destViewController = segue.destinationViewController;
+        JAlbum *cellData;
+        
+        indexPath = [self.tableView indexPathForSelectedRow];
+        cellData = [_cellDataSourceArray objectAtIndex:indexPath.row];
+        destViewController.chosenAlbum = cellData;
+    }
 }
-*/
 
 @end

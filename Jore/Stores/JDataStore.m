@@ -67,6 +67,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                                            andPreviewUrl:trackPreviewUrl
                                               andAlbumId:trackAlbumId];
             
+            DDLogVerbose(@"dataStore: init track: %@; duration: %@", track.trackName, track.trackDuration);
+            
             // Add track to tracksArray
             [allTracksArray addObject:track];
         }
@@ -153,7 +155,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSArray *arrayToSort = [NSKeyedUnarchiver unarchiveObjectWithData:cachedTrackData];
     
     // Init sort descriptor (sorted by track number)
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"trackNumber" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"trackNumber" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     NSArray *sortedArray = [arrayToSort sortedArrayUsingDescriptors:sortDescriptors];
     

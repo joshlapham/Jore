@@ -50,7 +50,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:trackName forKey:@"albumName"];
+    [aCoder encodeObject:trackName forKey:@"trackName"];
     [aCoder encodeObject:trackId forKey:@"trackId"];
     [aCoder encodeObject:trackDuration forKey:@"trackDuration"];
     [aCoder encodeObject:trackNumber forKey:@"trackNumber"];
