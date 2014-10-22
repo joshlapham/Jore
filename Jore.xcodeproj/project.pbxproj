@@ -118,10 +118,10 @@
 				68A2F56F19F7366B009C94CB /* Main.storyboard */,
 				68A2F57219F7366B009C94CB /* Images.xcassets */,
 				68A2F57419F7366B009C94CB /* LaunchScreen.xib */,
+				68A2F59919F765C5009C94CB /* Models */,
 				68A2F59219F73EFA009C94CB /* Stores */,
 				68A2F58E19F73855009C94CB /* View Controllers */,
 				68A2F56519F7366B009C94CB /* Supporting Files */,
-				68A2F59919F765C5009C94CB /* Models */,
 			);
 			path = Jore;
 			sourceTree = "<group>";

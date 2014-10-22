@@ -10,8 +10,6 @@
 
 @interface JDataStore : NSObject
 
-@property (nonatomic, strong) NSMutableArray *albumsArray;
-
 // Init method
 + (JDataStore *)sharedStore;
 
@@ -19,5 +17,6 @@
 + (void)fetchAlbumData;
 + (NSArray *)returnFetchedAlbums;
 + (NSArray *)returnFetchedTracksForAlbumId:(NSString *)albumId;
++ (NSString *)convertTrackDurationFromMilliseconds:(NSString *)millisecondsValue;
 
 @end

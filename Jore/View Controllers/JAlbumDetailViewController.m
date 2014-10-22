@@ -27,6 +27,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Set title text
+    self.title = self.chosenAlbum.albumName;
+    
     // Init tableView data source
     _cellDataSourceArray = [JDataStore returnFetchedTracksForAlbumId:self.chosenAlbum.albumId];
 }
@@ -34,7 +37,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:NO];
     
-    // Remove KV observer for AVPlayer
+    // Remove KVO for AVPlayer
     [_player removeObserver:self forKeyPath:@"status" context:nil];
     _player = nil;
 }
@@ -60,10 +63,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     // Init labels and strings
     UILabel *trackNameLabel = (UILabel *)[cell viewWithTag:101];
+    UILabel *trackDurationLabel = (UILabel *)[cell viewWithTag:102];
     NSString *trackNameLabelString = [NSString stringWithFormat:@"%@. %@", cellData.trackNumber, cellData.trackName];
+    NSString *trackDurationLabelString = [JDataStore convertTrackDurationFromMilliseconds:cellData.trackDuration];
     
     // Set contents of labels using our data
     [trackNameLabel setText:trackNameLabelString];
+    [trackDurationLabel setText:trackDurationLabelString];
     
     return cell;
 }
@@ -73,7 +79,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSURL *url = [NSURL URLWithString:cellData.trackPreviewUrl];
     
-    // Remove existing KV observer
+    // Remove existing KVO
     [_player removeObserver:self forKeyPath:@"status" context:nil];
     _player = nil;
     

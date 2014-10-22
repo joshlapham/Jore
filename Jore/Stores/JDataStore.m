@@ -16,7 +16,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation JDataStore
 
-@synthesize albumsArray;
+#pragma mark - Convert track duration from milliseconds
+
++ (NSString *)convertTrackDurationFromMilliseconds:(NSString *)millisecondsValue {
+    float seconds = [millisecondsValue floatValue] / 1000.0;
+    float minutes = seconds / 60.0;
+    
+    // TODO: fix up the returned string formatting, cause it doesn't look right
+    return [NSString stringWithFormat:@"%.f:%.f", minutes, seconds];
+}
 
 #pragma mark - Fetch album details method
 

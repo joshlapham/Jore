@@ -85,6 +85,9 @@ static const int ddLogLevel = LOG_LEVEL_OFF;
     UILabel *albumTrackCountLabel = (UILabel *)[cell viewWithTag:103];
     UIImageView *albumImageView = (UIImageView *)[cell viewWithTag:104];
     
+    //[albumNameLabel setNumberOfLines:0];
+    [albumNameLabel setAdjustsFontSizeToFitWidth:YES];
+    
     // Set contents of labels using cell data
     [albumNameLabel setText:albumNameString];
     [albumReleaseDateLabel setText:albumReleaseDateString];
