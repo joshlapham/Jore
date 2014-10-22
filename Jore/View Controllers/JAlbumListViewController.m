@@ -10,6 +10,7 @@
 #import <CocoaLumberjack.h>
 #import "JDataStore.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "JAlbum.h"
 
 @interface JAlbumListViewController ()
 
@@ -72,17 +73,24 @@ static const int ddLogLevel = LOG_LEVEL_OFF;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AlbumListCell" forIndexPath:indexPath];
     
     // Init cell data
-    NSDictionary *cellData = [_cellDataSourceArray objectAtIndex:indexPath.row];
-    NSString *albumNameString = [cellData objectForKey:@"albumName"];
-    NSString *albumImageUrlString = [cellData objectForKey:@"albumImageUrl"];
+    JAlbum *cellData = [_cellDataSourceArray objectAtIndex:indexPath.row];
+    NSString *albumNameString = cellData.albumName;
+    NSString *albumReleaseDateString = cellData.albumReleaseDate;
+    NSString *albumTrackCountString = cellData.albumTrackCount;
     
     // Init cell labels
     UILabel *albumNameLabel = (UILabel *)[cell viewWithTag:101];
+    UILabel *albumReleaseDateLabel = (UILabel *)[cell viewWithTag:102];
+    UILabel *albumTrackCountLabel = (UILabel *)[cell viewWithTag:103];
     UIImageView *albumImageView = (UIImageView *)[cell viewWithTag:104];
     
     // Set contents of labels using cell data
     [albumNameLabel setText:albumNameString];
-    [albumImageView setImageWithURL:[NSURL URLWithString:albumImageUrlString]];
+    [albumReleaseDateLabel setText:albumReleaseDateString];
+    [albumTrackCountLabel setText:[NSString stringWithFormat:@"%@ Songs", albumTrackCountString]];
+    
+    // Set image using AFNetworking
+    [albumImageView setImageWithURL:[NSURL URLWithString:cellData.albumImageUrl]];
     
     return cell;
 }

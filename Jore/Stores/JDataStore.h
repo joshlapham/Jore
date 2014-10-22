@@ -10,12 +10,13 @@
 
 @interface JDataStore : NSObject
 
+@property (nonatomic, strong) NSMutableArray *albumsArray;
+
 // Init method
 + (JDataStore *)sharedStore;
 
 // Class methods
 + (void)fetchAlbumData;
 + (NSArray *)returnFetchedAlbums;
-+ (void)postNotificationThatDataFetchDidHappen;
 
 @end

@@ -17,6 +17,8 @@
 		68A2F58D19F73850009C94CB /* JAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F58C19F73850009C94CB /* JAlbumListViewController.m */; };
 		68A2F59119F73EF7009C94CB /* JDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F59019F73EF7009C94CB /* JDataStore.m */; };
 		68A2F59519F73F4C009C94CB /* JPLReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F59419F73F4C009C94CB /* JPLReachabilityManager.m */; };
+		68A2F59819F765C0009C94CB /* JAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F59719F765C0009C94CB /* JAlbum.m */; };
+		68A2F59C19F765D1009C94CB /* JTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A2F59B19F765D1009C94CB /* JTrack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,10 @@
 		68A2F59019F73EF7009C94CB /* JDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDataStore.m; path = Stores/JDataStore.m; sourceTree = "<group>"; };
 		68A2F59319F73F4C009C94CB /* JPLReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPLReachabilityManager.h; path = Stores/JPLReachabilityManager.h; sourceTree = "<group>"; };
 		68A2F59419F73F4C009C94CB /* JPLReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JPLReachabilityManager.m; path = Stores/JPLReachabilityManager.m; sourceTree = "<group>"; };
+		68A2F59619F765C0009C94CB /* JAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JAlbum.h; path = Models/JAlbum.h; sourceTree = "<group>"; };
+		68A2F59719F765C0009C94CB /* JAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JAlbum.m; path = Models/JAlbum.m; sourceTree = "<group>"; };
+		68A2F59A19F765D1009C94CB /* JTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTrack.h; path = Models/JTrack.h; sourceTree = "<group>"; };
+		68A2F59B19F765D1009C94CB /* JTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTrack.m; path = Models/JTrack.m; sourceTree = "<group>"; };
 		6E2AD95C4D5806869250C55A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F3E0B6D002A354A7444AFE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E2AC499722C7E4BBD762AF5A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +114,7 @@
 				68A2F59219F73EFA009C94CB /* Stores */,
 				68A2F58E19F73855009C94CB /* View Controllers */,
 				68A2F56519F7366B009C94CB /* Supporting Files */,
+				68A2F59919F765C5009C94CB /* Models */,
 			);
 			path = Jore;
 			sourceTree = "<group>";
@@ -158,6 +165,17 @@
 				68A2F59019F73EF7009C94CB /* JDataStore.m */,
 			);
 			name = Stores;
+			sourceTree = "<group>";
+		};
+		68A2F59919F765C5009C94CB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				68A2F59619F765C0009C94CB /* JAlbum.h */,
+				68A2F59719F765C0009C94CB /* JAlbum.m */,
+				68A2F59A19F765D1009C94CB /* JTrack.h */,
+				68A2F59B19F765D1009C94CB /* JTrack.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		E72C268134A6DB24BB2E4D86 /* Pods */ = {
@@ -308,6 +326,8 @@
 				68A2F59119F73EF7009C94CB /* JDataStore.m in Sources */,
 				68A2F56B19F7366B009C94CB /* AppDelegate.m in Sources */,
 				68A2F56819F7366B009C94CB /* main.m in Sources */,
+				68A2F59C19F765D1009C94CB /* JTrack.m in Sources */,
+				68A2F59819F765C0009C94CB /* JAlbum.m in Sources */,
 				68A2F58D19F73850009C94CB /* JAlbumListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
