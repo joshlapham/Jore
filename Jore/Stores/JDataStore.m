@@ -95,7 +95,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         NSMutableArray *allTrackDurationArray = [[NSMutableArray alloc] init];
         
         for (NSDictionary *track in tracksArray) {
-            //DDLogVerbose(@"TRACK: %@", [track class]);
             NSString *trackName = [track objectForKey:@"name"];
             NSString *trackId = [track objectForKey:@"id"];
             NSString *trackNumber = [track objectForKey:@"track_number"];
@@ -103,8 +102,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             NSString *trackPreviewUrl = [track objectForKey:@"preview_url"];
             // Use method parameter for the trackAlbumId
             NSString *trackAlbumId = albumIdToFetch;
-            
-            trackDict = @{ @"trackName": trackName, @"trackId": trackId, @"trackNumber" : trackNumber, @"trackDuration": trackDuration, @"trackPreviewUrl": trackPreviewUrl, @"trackAlbumId": trackAlbumId };
             
             // Init JTrack object
             JTrack *newTrack = [[JTrack alloc] initWithName:trackName
@@ -221,23 +218,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self postNotificationThatDataFetchDidHappen];
 }
 
-#pragma mark - Return tracks for album ID method
-
-+ (NSArray *)returnFetchedTracksForAlbumId:(NSString *)albumId {
-    NSString *keyForTracks = [NSString stringWithFormat:@"%@-tracks", albumId];
-    NSData *cachedTrackData = [[NSUserDefaults standardUserDefaults] objectForKey:keyForTracks];
-    NSArray *arrayToSort = [NSKeyedUnarchiver unarchiveObjectWithData:cachedTrackData];
-    
-    // Init sort descriptor (sorted by track number)
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"trackNumber" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    NSArray *sortedArray = [arrayToSort sortedArrayUsingDescriptors:sortDescriptors];
-    
-    DDLogVerbose(@"dataStore: return fetched tracks count: %d", [sortedArray count]);
-    
-    return sortedArray;
-}
-
 #pragma mark - Check for albums that aren't by Jore method
 
 + (BOOL)checkIfAlbumIsByJore:(JAlbum *)albumToCheck {
@@ -286,6 +266,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSArray *sortedArray = [arrayToSort sortedArrayUsingDescriptors:sortDescriptors];
     
     DDLogVerbose(@"dataStore: return fetched albums count: %d", [sortedArray count]);
+    
+    return sortedArray;
+}
+
+#pragma mark - Return tracks for album ID method
+
++ (NSArray *)returnFetchedTracksForAlbumId:(NSString *)albumId {
+    NSString *keyForTracks = [NSString stringWithFormat:@"%@-tracks", albumId];
+    NSData *cachedTrackData = [[NSUserDefaults standardUserDefaults] objectForKey:keyForTracks];
+    NSArray *arrayToSort = [NSKeyedUnarchiver unarchiveObjectWithData:cachedTrackData];
+    
+    // Init sort descriptor (sorted by track number)
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"trackNumber" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    NSArray *sortedArray = [arrayToSort sortedArrayUsingDescriptors:sortDescriptors];
+    
+    DDLogVerbose(@"dataStore: return fetched tracks count: %d", [sortedArray count]);
     
     return sortedArray;
 }
