@@ -10,6 +10,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import "JAlbum.h"
+#import "JTrack.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -43,6 +44,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         // Init dictionary to hold track info
         NSDictionary *trackDict;
         
+        // Init array to hold track info
+        NSMutableArray *allTracksArray = [[NSMutableArray alloc] init];
+        
         for (NSDictionary *track in tracksArray) {
             //DDLogVerbose(@"TRACK: %@", [track class]);
             NSString *trackName = [track objectForKey:@"name"];
@@ -54,6 +58,17 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
             NSString *trackAlbumId = albumIdToFetch;
             
             trackDict = @{ @"trackName": trackName, @"trackId": trackId, @"trackNumber" : trackNumber, @"trackDuration": trackDuration, @"trackPreviewUrl": trackPreviewUrl, @"trackAlbumId": trackAlbumId };
+            
+            // Init JTrack object
+            JTrack *track = [[JTrack alloc] initWithName:trackName
+                                                   andId:trackId
+                                             andDuration:trackDuration
+                                               andNumber:trackNumber
+                                           andPreviewUrl:trackPreviewUrl
+                                              andAlbumId:trackAlbumId];
+            
+            // Add track to tracksArray
+            [allTracksArray addObject:track];
         }
         
         // Init album release date string
@@ -88,7 +103,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
                                          andImageUrl:albumImageUrl];
         
         // Persist album to NSUserDefaults
-        [self persistAlbum:album];
+        [self persistAlbum:album andTracks:allTracksArray];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DDLogError(@"dataStore: error fetching data for album ID: %@, Reason: %@", albumIdToFetch, [error localizedDescription]);
@@ -110,7 +125,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 #pragma mark - Persist fetched album to NSUserDefaults method
 
-+ (void)persistAlbum:(JAlbum *)albumToPersist {
++ (void)persistAlbum:(JAlbum *)albumToPersist andTracks:(NSArray *)tracksArray {
     NSMutableArray *cachedResults = [NSMutableArray arrayWithArray:[self returnFetchedAlbums]];
     
     if ([self checkIfAlbumIsByJore:albumToPersist]) {
@@ -119,11 +134,32 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSData *albumArrayToSave = [NSKeyedArchiver archivedDataWithRootObject:cachedResults];
     [[NSUserDefaults standardUserDefaults] setObject:albumArrayToSave forKey:@"JAlbumArray"];
+    // Persist tracks using album ID as the unique key
+    NSData *trackArrayToSave = [NSKeyedArchiver archivedDataWithRootObject:tracksArray];
+    NSString *keyForTracks = [NSString stringWithFormat:@"%@-tracks", albumToPersist.albumId];
+    [[NSUserDefaults standardUserDefaults] setObject:trackArrayToSave forKey:keyForTracks];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     DDLogVerbose(@"dataStore: persisted album to NSUserDefaults: %@; total: %d", albumToPersist.albumName, [cachedResults count]);
     
     [self postNotificationThatDataFetchDidHappen];
+}
+
+#pragma mark - Return tracks for album ID method
+
++ (NSArray *)returnFetchedTracksForAlbumId:(NSString *)albumId {
+    NSString *keyForTracks = [NSString stringWithFormat:@"%@-tracks", albumId];
+    NSData *cachedTrackData = [[NSUserDefaults standardUserDefaults] objectForKey:keyForTracks];
+    NSArray *arrayToSort = [NSKeyedUnarchiver unarchiveObjectWithData:cachedTrackData];
+    
+    // Init sort descriptor (sorted by track number)
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"trackNumber" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    NSArray *sortedArray = [arrayToSort sortedArrayUsingDescriptors:sortDescriptors];
+    
+    DDLogVerbose(@"dataStore: return fetched tracks count: %d", [sortedArray count]);
+    
+    return sortedArray;
 }
 
 #pragma mark - Check for albums that aren't by Jore method

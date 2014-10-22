@@ -18,5 +18,6 @@
 // Class methods
 + (void)fetchAlbumData;
 + (NSArray *)returnFetchedAlbums;
++ (NSArray *)returnFetchedTracksForAlbumId:(NSString *)albumId;
 
 @end
